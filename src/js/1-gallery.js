@@ -1,5 +1,10 @@
 //Створи галерею з можливістю кліку по її елементах і перегляду
 //повнорозмірного зображення в модальному вікні.
+//Використовуючи бібліотеку SimpleLightbox, яка повністю візьме на себе обробку кліків по зображеннях,
+// відкриття і закриття модального вікна, а також гортання зображень за допомогою клавіатури.
+
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const images = [
   {
@@ -85,3 +90,9 @@ const galleryItemsMarkup = images.map(({ preview, original, description }) => {
 }).join('');
 
 galleryContainer.innerHTML = galleryItemsMarkup;
+
+const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',       // Використовуємо атрибут alt для підписів
+    captionDelay: 250,         // Затримка перед показом підпису
+    captionPosition: 'bottom'  // Позиція підпису знизу
+});
