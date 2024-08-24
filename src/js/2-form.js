@@ -32,23 +32,53 @@ const onFormFieldInput = event => {
 
 const onFeedbackFormSubmit = event => {
  
-   const fields = feedbackFormEl.querySelectorAll('input, textarea');
-   let allFieldsFilled = true;
-    
-   fields.forEach((field)=> {
-    if (!field.value.trim()) {
-      allFieldsFilled = false;
-      } 
-   });
- 
+  event.preventDefault(); 
+
+  const fields = feedbackFormEl.elements;
+  let allFieldsFilled = true;
+
+  for (let i = 0; i < fields.length; i++) {
+    const field = fields[i];
+
+      if ((field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') && !field.value.trim()) {
+        allFieldsFilled = false;
+    }; 
+  }
+
+  //або без перебору, просто по іменам
+  // if (!feedbackFormEl.email.value.trim() || !feedbackFormEl.message.value.trim()) {
+  //    allFieldsFilled = false;
+  //  }
+
+
   if (!allFieldsFilled) {
-    event.preventDefault(); 
     alert('Please fill in all fields.');
-    }
-  else {
+  } else {
+    console.log(formData);
+    formData = {};
     event.target.reset();
     localStorage.removeItem('feedback-form-state');  
-    };
+  };
+
+ 
+//old code
+  //  const fields = feedbackFormEl.querySelectorAll('input, textarea');
+  //   let allFieldsFilled = true;
+    
+  //   fields.forEach((field)=> {
+  //   if (!field.value.trim()) {
+  //     allFieldsFilled = false;
+  //     } 
+  //  });
+ 
+  // if (!allFieldsFilled) {
+  //   // event.preventDefault(); 
+  //   alert('Please fill in all fields.');
+  //   }
+  // else {
+  //   event.target.reset();
+  //   localStorage.removeItem('feedback-form-state');  
+  //   };
 
 };
 
